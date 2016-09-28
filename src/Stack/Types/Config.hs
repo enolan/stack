@@ -1110,6 +1110,7 @@ data ConfigException
   | UserDoesn'tOwnDirectory (Path Abs Dir)
   | FailedToCloneRepo String
   | ManualGHCVariantSettingsAreIncompatibleWithSystemGHC
+  | NixRequiresSystemGhc
   deriving Typeable
 instance Show ConfigException where
     show (ParseConfigFileException configFile exception) = concat
@@ -1218,6 +1219,12 @@ instance Show ConfigException where
         , " of its own GHC installations. Please use '--no-"
         , configMonoidSystemGHCName
         , "'."
+        ]
+    show NixRequiresSystemGhc = T.unpack $ T.concat
+        [ "stack's Nix integration is incompatible with '--no-system-ghc'. "
+        , "Please use '--"
+        , configMonoidSystemGHCName
+        , "' or disable the Nix integration."
         ]
 instance Exception ConfigException
 
