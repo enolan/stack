@@ -47,6 +47,10 @@ matrix:
       compiler: ": #stack 8.0.1"
       addons: {apt: {packages: [ghc-8.0.1], sources: [hvr-ghc]}}
 
+    - env: BUILD=docker STACK_YAML=stack.yaml
+      compiler : ": #docker"
+      sudo: true
+
   allow_failures:
     - env: BUILD=stack STACK_YAML=stack.yaml
       compiler: ": #stack 7.10.3 osx"
